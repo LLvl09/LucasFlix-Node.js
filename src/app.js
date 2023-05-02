@@ -6,8 +6,8 @@ dotenv.config();
 const app = express();
 app.use(express.json()) // Para conteúdo do tipo JSON
 
-
-mongoose.connect("mongodb+srv://llvl09:ads.Microsoft54@lucasflix.veahyru.mongodb.net/lucasFlixDb", { useNewUrlParser: true, useUnifiedTopology: true })
+const MONGODB_URI= process.env.CONNECTION_STRING
+mongoose.connect(MONGODB_URI, { useNewUrlParser: true, useUnifiedTopology: true })
   .then(() => {
     console.log('Conexão com o banco de dados estabelecida com sucesso!')
   })
@@ -28,7 +28,7 @@ app.use('/videos', videoRouter);
 app.use('/categorias', categoriaRouter);
 app.use('/admin', adminRouter);
 
-const PORT = 3000
+const PORT = process.env.PORT
 
 app.listen(PORT, () => {
     console.log(`Servidor rodando na porta ${PORT}`)

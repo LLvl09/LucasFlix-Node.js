@@ -9,7 +9,7 @@ exports.check = function(req, res, next)  {
             message: 'Acesso negado'
         });
     } else {
-        jwt.verify(token, "HSUDHUASBN@#$!@#OK448sa21d54a32re564e41", function (error, decoded) {
+        jwt.verify(token, process.env.SECRET_TOKEN, function (error, decoded) {
             if (error) {
                 res.status(401).send({
                     message: 'Token invalido'
