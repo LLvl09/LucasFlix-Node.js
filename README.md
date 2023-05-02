@@ -7,6 +7,8 @@ Este é um projeto da challange do alura. É sobre criar uma "netflix" que só a
 Esta aplicação está rodando no aws com o endereço ip: **3.137.181.36** na porta **8080**.
 Para rodar a apliação na web ou no postman, use: **3.137.181.36:8080/rota**
 
+**Apenas o usuário admin poderá postar categorias e video**
+
 Tem os seguintes endereços:
     **/videos**
     **/categorias**
