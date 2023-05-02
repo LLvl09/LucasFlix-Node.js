@@ -18,3 +18,6 @@ Tem os seguintes endereços:
 
 Fiz a validação de videos do youtube com regex com essa expressão: **/(?:https?:\/\/)?(?:www\.)?(?:youtu\.be\/|youtube\.com\/(?:embed\/|v\/|watch\?v=))([\w-]{11})(?:\S+)?/**
 
+Tem duas rotas CRUD, que são: /video e /categorias. 
+
+Configurei para que automáticamente coloca-se o video na categoria desejada.
