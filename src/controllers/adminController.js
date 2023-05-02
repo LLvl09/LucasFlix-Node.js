@@ -5,6 +5,42 @@ const bcrypt = require('bcrypt');
 const LoginDto = require('../models/Dtos/LoginDto');
 const jwt = require('jsonwebtoken');
 
+exports.post = async (req, res, next) => {
+    let contract = new ValidationContract();
+
+    contract.hasMinLen(req.body.name, 3, 'The name must contain at least 3 characters');
+    contract.hasMinLen(req.body.password, 6, 'The password must contain at least 3 characters');
+    contract.isEmail(req.body.email, 'Your email is invalid');
+
+    if (!contract.isValid()) {
+        res.status(400).send(contract.errors()).end();
+        return;
+    }
+
+    try {
+        const user = new User(req.body);
+
+        const salt = await bcrypt.genSalt(12);
+        const passwordHash = await bcrypt.hash(user.password, salt);
+        user.password = passwordHash;
+
+        let exist = await User.findOne({ email: user.email })
+
+        if (exist === null) {
+            await user.save();
+            res.status(201).send({ message: 'Your email has been succefully registred' });
+        }
+        if (exist.email === user.email) {
+
+            res.status(400).send({ message: 'This email already exist' });
+        }
+
+
+    } catch (e) {
+        res.status(500).send({ message: 'Failed to register the user', data: e });
+    }
+}
+
 exports.login = async (req, res, next) => {
     let contract = new ValidationContract();
 
